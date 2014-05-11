@@ -1,43 +1,24 @@
-# docker-wordpress-nginx
+# docker-fusioninvoice-nginx
 
 A Dockerfile that installs the latest wordpress, nginx, php-apc and php-fpm.
 
-NB: A big thanks to [jbfink](https://github.com/jbfink/docker-wordpress) who did most of the hard work on the wordpress parts!
-
-You can check out his [Apache version here](https://github.com/jbfink/docker-wordpress).
+NB: A big thanks to [eugeneware](https://github.com/eugeneware/docker-wordpress-nginx) for the template of this Dockerfile!
 
 ## Installation
 
 ```
-$ git clone https://github.com/eugeneware/docker-wordpress-nginx.git
-$ cd docker-wordpress-nginx
-$ sudo docker build -t="docker-wordpress-nginx" .
+$ git clone https://github.com/onny/docker-fusioninvoice-nginx.git
+$ cd docker-fusioninvoice-nginx
+$ sudo docker build -t="docker-fusioninvoice-nginx" .
 ```
 
 ## Usage
 
-To spawn a new instance of wordpress:
+To spawn a new instance of FusionInvoice:
 
 ```bash
-$ sudo docker run -p 80 -d docker-wordpress-nginx
+$ sudo docker run -p 80:80 -d docker-fusioninvoice-nginx
 ```
-
-You'll see an ID output like:
-```
-d404cc2fa27b
-```
-
-Use this ID to check the port it's on:
-```bash
-$ sudo docker port d404cc2fa27b 80 # Make sure to change the ID to yours!
-```
-
-This command returns the container ID, which you can use to find the external port you can use to access Wordpress from your host machine:
-
-```
-$ docker port <container-id> 80
-```
-
 You can the visit the following URL in a browser on your host machine to get started:
 
 ```
