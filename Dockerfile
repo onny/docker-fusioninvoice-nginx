@@ -35,18 +35,19 @@ RUN find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
+RUN sed -i -e"s/q=\$uri\&\$args/\/\$request_uri/" /etc/nginx/sites-available/default
 
 # Supervisor Config
 RUN /usr/bin/easy_install supervisor
 RUN /usr/bin/easy_install supervisor-stdout
 ADD ./supervisord.conf /etc/supervisord.conf
 
-# Install Wordpress
-ADD http://wordpress.org/latest.tar.gz /usr/share/nginx/latest.tar.gz
-RUN cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz
-RUN mv /usr/share/nginx/html/5* /usr/share/nginx/wordpress
+# Install FusionInvoice
+ADD https://github.com/freeskys/fusioninvoice/archive/master.tar.gz /usr/share/nginx/master.tar.gz
+RUN cd /usr/share/nginx/ && tar xvf master.tar.gz && rm master.tar.gz
+RUN mv /usr/share/nginx/html/5* /usr/share/nginx/fusioninvoice-master
 RUN rm -rf /usr/share/nginx/www
-RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www
+RUN mv /usr/share/nginx/fusioninvoice-master /usr/share/nginx/www
 RUN chown -R www-data:www-data /usr/share/nginx/www
 
 # Wordpress Initialization and Startup Script
